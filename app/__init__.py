@@ -1,20 +1,20 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-# Inicializar SQLAlchemy para la base de datos
+# initialize SQLAlchemy to the data base
 db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
 
-    # Configuración de la base de datos 
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mi_tienda.db'
+    # configure data base
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///store.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    # Inicializar la base de datos con la aplicación
+    # initialize date base on application
     db.init_app(app)
 
-    # Registrar las rutas desde routes.py
+    # register routes from app.py
     from .routes import main
     app.register_blueprint(main)
 
