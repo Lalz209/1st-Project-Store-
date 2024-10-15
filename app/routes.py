@@ -20,7 +20,7 @@ def login():
     return render_template('login.html')
 
 
-@main.route('/register')
+@main.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == "POST":
         username = request.form.get("username")
@@ -30,28 +30,28 @@ def register():
 
         if password != confirm_password:
             flash("password do not match.")
-            return redirect(url_for("auth.register"))
+            return redirect(url_for("main.register"))
 
-        existing_email = user.query.filter_by(email=email).first()
+        existing_email = User.query.filter_by(email=email).first()
         if existing_email:
             flash("e-mail is already in use!")
-            return redirect(url_for('auth.register'))
+            return redirect(url_for('main.register'))
         
         if not is_valid_email(email):
             return flash("e-mail is not valid. Please try with another e-mail.")
         
 
-        new_user = user(
+        new_user = User(
             username=username,
             email=email,
-            password_hash = generate_password_hash(password, method='sha256')
+            password_hash = generate_password_hash(password, method='pbkdf2:sha256')
         )
 
-        existing_user = user.query.filter_by(username=username).first()
+        existing_user = User.query.filter_by(username=username).first()
         if existing_user:
             flash("User id already exist! Try another one")
             
-            return redirect(url_for('auth.register'))
+            return redirect(url_for('main.register'))
 
         
 
@@ -59,6 +59,7 @@ def register():
         db.session.commit()
 
         flash("account created successfully! Please log in.")
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('main.login'))
+    
 
     return render_template('register.html')
