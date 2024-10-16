@@ -1,7 +1,6 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app, jsonify
 from werkzeug.security import generate_password_hash
 from app.models import db, User  
-from flask import current_app
 from .utils import is_valid_email
 
 main = Blueprint('main', __name__)
@@ -15,7 +14,7 @@ def index():
     
     return render_template('index.html')
 
-@main.route('/login')
+@main.route('/login', methods=['GET', 'POST'])
 def login():
     return render_template('login.html')
 
@@ -28,9 +27,12 @@ def register():
         password = request.form.get("password")
         confirm_password = request.form.get("confirm_password")
 
+        if not username or not email or not password or not confirm_password:
+            return jsonify({"error": "All fields are required!"}), 400
+    
+    
         if password != confirm_password:
-            flash("password do not match.")
-            return redirect(url_for("main.register"))
+            return jsonify({"error": "Passwords do not match!"}), 400
 
         existing_email = User.query.filter_by(email=email).first()
         if existing_email:
@@ -38,7 +40,8 @@ def register():
             return redirect(url_for('main.register'))
         
         if not is_valid_email(email):
-            return flash("e-mail is not valid. Please try with another e-mail.")
+             flash("e-mail is not valid. Please try with another e-mail.")
+             return redirect(url_for("main.register"))
         
 
         new_user = User(
