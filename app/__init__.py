@@ -1,16 +1,19 @@
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy  
+from flask_cors import CORS
+from .auth import auth
+from .main import main
 from .models import db
-from .auth import auth  
-from .main import main  
 
 def create_app():
     app = Flask(__name__)
+    CORS(app)
 
-    app.config['SECRET_KEY'] = 'your_secret_key'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/store.db'
+    app.config.from_object('config.Config')  # Load config from config.py
 
-    #register blueprints
-    app.register_blueprint(main)  
-    app.register_blueprint(auth)  
+    db.init_app(app)
+    
+    app.register_blueprint(main)
+    app.register_blueprint(auth)
 
     return app
