@@ -1,7 +1,10 @@
 from flask import Blueprint, request, jsonify
 from werkzeug.security import generate_password_hash
 from app.models import User, db
+import jwt
+from datetime import datetime, timedelta
 from app.utils import is_valid_email  
+from app import create_app
 
 # Define blueprint auth
 auth = Blueprint('auth', __name__)
@@ -48,3 +51,29 @@ def register():
 
     # return jsonify answer
     return jsonify({"message": "Account created successfully!"}), 201
+
+
+@auth.login('/api/login', methods=['POST'])
+def login():
+    data = request.get_json()
+
+    username = data.get("username")
+    email = data.get("email")
+    password = data.get("password")
+
+    user = None
+
+    if username:
+        user = User.query.filter_by(username=username).first()
+    if email:
+        user = User.query.filter_by(email=email).first()
+
+    if user and check_password_hash(user.password_hash, password):
+        token = jwt.encode({
+            'user_id': user.id,
+            'exp': datetime.utcnow() + timedelta(hours=1)
+        }, app.config['SECRET_KEY'], algorithm='HS256')
+
+        return jsonify({'message': 'Login Succesful', 'token': token})
+    else:
+        return jsonify({'error': 'Invalid credentials',}), 401

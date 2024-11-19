@@ -19,12 +19,12 @@ function Register() {
       setSuccessMessage(response.data.message);
       setError('');  // Clear any previous error
     } catch (error) {
-      console.error('Error al registrar:', error);
+      console.error('Registration error:', error.response || error);
       setError(error.response?.data?.error || 'Registration failed');
     }
   };
 
-  return (
+  return ( 
     <form onSubmit={handleSubmit}>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
