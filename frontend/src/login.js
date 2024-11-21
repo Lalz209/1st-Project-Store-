@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function login() {
+function Login() {
     const [formData, setFormData] = useState({
         identifier: '', // email or user
         password: ''
@@ -52,4 +52,4 @@ function login() {
     );
 }
 
-export default login;
+export default Login;

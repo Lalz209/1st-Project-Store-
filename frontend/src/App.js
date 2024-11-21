@@ -1,24 +1,24 @@
 import React from "react";
-import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
-import Register from './Register';
-import Login from './Login';
+import {BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom';
+import Register from './register';
+import Login from './login';
 import Home from './Home';
 
-function app() {
+function App() {
   return (
     <Router>
       <nav>
         <Link to="/">Home</Link>
         <Link to="/register">Register</Link>
-        <Link to="/login">Login</Link>
+        <Link to="/Login">Login</Link>
       </nav>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/register" component={Register} />
-        <Route path="/login" component={Login} />
-      </Switch>
+      <Routes>
+        <Route exact path="/" element={Home} />
+        <Route path="/register" element={Register} />
+        <Route path="/Login" element={Login} />
+      </Routes>
     </Router>
   );
 }
 
-export default app;
+export default App;
