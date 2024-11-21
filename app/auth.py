@@ -1,80 +1,53 @@
-from flask import Blueprint, request, jsonify, current_app
-from werkzeug.security import generate_password_hash, check_password_hash
-from app.models import User, db
-import jwt
-from datetime import datetime, timedelta
-from app.utils import is_valid_email  
-from app import create_app
+from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask_login import login_user, logout_user, login_required
+from .models import User
+from . import db
 
-# Define blueprint auth
 auth = Blueprint('auth', __name__)
 
-@auth.route('/api/register', methods=['POST'])
-def register():
-    data = request.get_json()  # Flask get data on JSON format from react
-
-    # extract json data
-    username = data.get("username")
-    email = data.get("email")
-    password = data.get("password")
-    confirm_password = data.get("confirm_password")
-
-    # basic validations
-    if not username or not email or not password or not confirm_password:
-        return jsonify({"error": "All fields are required!"}), 400
-
-    if password != confirm_password:
-        return jsonify({"error": "Passwords do not match!"}), 400
-    
-    if len(password) < 8:
-        return jsonify({"error": "password must be at least 8 characters"}) 
-
-    existing_email = User.query.filter_by(email=email).first()
-    if existing_email:
-        return jsonify({"error": "Email is already in use!"}), 400
-
-    if not is_valid_email(email):
-        return jsonify({"error": "Invalid email format!"}), 400
-
-    existing_user = User.query.filter_by(username=username).first()
-    if existing_user:
-        return jsonify({"error": "Username already exists!"}), 400
-
-    # create new user
-    new_user = User(
-        username=username,
-        email=email,
-        password_hash=generate_password_hash(password, method='pbkdf2:sha256')
-    )
-    db.session.add(new_user)
-    db.session.commit()
-
-    # return jsonify answer
-    return jsonify({"message": "Account created successfully!"}), 201
-
-
-@auth.route('/api/login', methods=['POST'])
+@auth.route('/login', methods=['GET', 'POST'])
 def login():
-    data = request.get_json()
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        remember = True if request.form.get('remember') else False
 
-    username = data.get("username")
-    email = data.get("email")
-    password = data.get("password")
-
-    user = None
-
-    if username:
-        user = User.query.filter_by(username=username).first()
-    if email:
         user = User.query.filter_by(email=email).first()
 
-    if user and check_password_hash(user.password_hash, password):
-        token = jwt.encode({
-            'user_id': user.id,
-            'exp': datetime.now(datetime.timezone.utc) + timedelta(hours=1)
-        }, current_app.config['SECRET_KEY'], algorithm='HS256')
+        if not user or not user.check_password(password):
+            flash('Por favor verifica tus credenciales e intenta nuevamente.')
+            return redirect(url_for('auth.login'))
 
-        return jsonify({'message': 'Login successful', 'token': token})
-    else:
-        return jsonify({'error': 'Invalid credentials',}), 401
+        login_user(user, remember=remember)
+        return redirect(url_for('main.profile'))
 
+    return render_template('login.html')
+
+@auth.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        name = request.form.get('name')
+        password = request.form.get('password')
+
+        user = User.query.filter_by(email=email).first()
+
+        if user:
+            flash('El correo electrónico ya existe')
+            return redirect(url_for('auth.register'))
+
+        new_user = User(email=email, name=name)
+        new_user.set_password(password)
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        return redirect(url_for('auth.login'))
+
+    return render_template('register.html')
+
+@auth.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('main.index'))
