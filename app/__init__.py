@@ -1,30 +1,26 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from os import environ
-from dotenv import load_dotenv
+from flask_cors import CORS
+from config import Config
 
-# Cargar variables de entorno
-load_dotenv()
-
-# Inicializar extensiones
+# initialize extensions
 db = SQLAlchemy()
 login_manager = LoginManager()
 
 def create_app():
     app = Flask(__name__)
+    CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
     
-    # Configuración
-    app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
-    app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URL')
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    # configuration 
+    app.config.from_object(Config)
 
-    # Inicializar extensiones
+    # initialize extensions
     db.init_app(app)
     login_manager.init_app(app)
     login_manager.login_view = 'auth.login'
 
-    # Registrar blueprints
+    # register blueprints
     from app.auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
 

@@ -1,0 +1,10 @@
+.login-container{
+    margin-top: 100px;
+    border-color: aqua;
+    border-radius: 5%;
+    border: 1px
+}
+
+.form-group{
+    border-radius: 10%;
+}
