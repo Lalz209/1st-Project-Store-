@@ -18,6 +18,9 @@ function App() {
         <Route path="/game" element={<Game />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      <footer>
+        <p>Copyright 2024</p>
+      </footer>
     </div>
   );
 }

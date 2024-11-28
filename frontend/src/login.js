@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Styles/Login.css'
+import { Link } from 'react-router-dom';
 
 function Login() {
     const navigate = useNavigate();
@@ -55,36 +56,41 @@ function Login() {
 
     return (
         <div className="login-container">
-            <form onSubmit={handleSubmit}>
-                {error && <p className="error-message">{error}</p>}
-                {successMessage && <p className="success-message">{successMessage}</p>}
+            <div className='container'>
+                <form onSubmit={handleSubmit}>
+                    {error && <p className="error-message">{error}</p>}
+                    {successMessage && <p className="success-message">{successMessage}</p>}
 
-                <div className="form-group">
-                    <p>Username, or email</p>
-                    <input 
-                        type="text"
-                        value={formData.identifier}
-                        onChange={(e) => setFormData({ ...formData, identifier: e.target.value })}
-                        placeholder="Username or Email"
-                        disabled={isLoading}
-                    />
-                </div>
+                    <div className="form-group">
+                        <input 
+                            type="text"
+                            value={formData.identifier}
+                            onChange={(e) => setFormData({ ...formData, identifier: e.target.value })}
+                            placeholder="Username or Email"
+                            disabled={isLoading}
+                        />
+                    </div>
 
-                <div className="form-group">
-                    <p>Password</p>
-                    <input
-                        type="password"
-                        value={formData.password}
-                        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                        placeholder="Password"
-                        disabled={isLoading}
-                    />
-                </div>
+                    <div className="form-group">
+                        <input
+                            type="password"
+                            value={formData.password}
+                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                            placeholder="Password"
+                            disabled={isLoading}
+                        />
+                    </div>
 
-                <button type="submit" disabled={isLoading}>
-                    {isLoading ? 'Logging in...' : 'Login'}
-                </button>
-            </form>
+                    <button type="submit" disabled={isLoading}>
+                        {isLoading ? 'Logging in...' : 'Log in'}
+                    </button>
+                    <Link to="/register">
+                        <button type="button" disabled={isLoading}>
+                            Create new account
+                        </button>
+                    </Link>
+                </form>
+            </div>
         </div>
     );
 }

@@ -28,6 +28,9 @@ function Navbar() {
             <li className="nav-item">
               <button onClick={handleLogout} className="nav-link">Logout</button>
             </li>
+            <li className='home'>
+              <Link to='/home' className='home'>Home</Link>
+            </li>
           </>
         ) : (
           <>
@@ -36,6 +39,9 @@ function Navbar() {
             </li>
             <li className="nav-item">
               <Link to="/register" className="nav-link">Register</Link>
+            </li>
+            <li className='home'>
+              <Link to='/home' className='home'>Home</Link>
             </li>
           </>
         )}
