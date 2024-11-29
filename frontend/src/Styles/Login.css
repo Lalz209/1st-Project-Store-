@@ -1,63 +1,103 @@
-.login-container{
-    height: 700px;
+
+.login-container {
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #171717; 
+    margin: 0;
 }
 
-input{
+.caps-warning {
+    color: #eeff00;
+    font-size: 14px;
+    margin: 5px 0;
+    text-align: left;
+    padding-left: 30px;
+}
+
+.container {
+    background-color: #333333;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+    width: 360px;
+    text-align: center;
+}
+
+input {
     border-radius: 6px;
-    height: 30px;
-    margin: 10px;
+    height: 40px;
+    margin: 10px 0;
     font-size: 16px;
-    width: 200px;
-    padding: 8px;
+    width: 85%;
+    padding: 10px;
     border: 1px solid #ddd;
-    
+}
+
+input:focus {
+    border: 1px solid #ffffff; 
+    outline: none;
+    box-shadow: 0 0 3px rgba(8, 115, 255, 0.5); 
+}
+
+button {
+    background-color: #464646;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    height: 40px;
+    width: 85%;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #464646;
+}
+
+button:disabled {
+    background-color: #a3cdfd;
+    cursor: not-allowed;
+}
+
+.forgot-password {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+    margin: 10px 0;
+    transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: #939393;
+}
+
+.create-account {
+    background-color: #333333;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.create-account:hover {
+    background-color: #464646;
 }
 
 p {
+    margin: 10px 0;
+    font-size: 14px;
     color: #FFFFFF;
-  }
-
-.container{
-    background-color: #333333;
-    height: 300px;
-    border-radius: 6px;
-    box-shadow: 0px 2px 4px rgba(255, 255, 255, 0.1),
-     0px 8px 16px rgba(255, 255, 255, 0.1);
-    display: grid;
-
-    
-
 }
 
-form{
-    top: 50%;
-    width: 300px;
-    height: 200px;
-    background-color: #333333;
-    display: contents;
-
+.error-message {
+    color: #eeff00;
+    font-size: 14px;
 }
 
-button{
-    background-color: #464646;
-    height: 30px;
-    width: 100px;
-    color: #FFFFFF;
-    border-radius: 6px;
-    font-size: 16px;
-    margin-top: 10px;
-    }
-
-button:hover{
-    background-color: #7e7d7d;
+.success-message {
+    color: rgb(255, 255, 255);
+    font-size: 14px;
 }
-
-.form-group {
-    display: flex;
-    flex-direction: column; 
-    margin-bottom: 10px; 
-}
-

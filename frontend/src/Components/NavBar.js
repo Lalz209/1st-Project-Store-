@@ -1,24 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../AuthContext';
 import '../Styles/NavBar.css';
 
 function Navbar() {
-  // Cheking if user is authenticated
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  // Simulación de verificar el estado de autenticación (puedes reemplazar esto con tu lógica real)
-  useEffect(() => {
-    const token = localStorage.getItem('token'); // O cualquier otra forma de obtener el estado de autenticación
-    if (token) {
-      setIsAuthenticated(true);
-    }
-  }, []);
-
-  const handleLogout = () => {
-    // Lógica para cerrar sesión
-    localStorage.removeItem('token'); // Elimina el token o realiza la lógica de cierre de sesión
-    setIsAuthenticated(false); // Actualiza el estado
-  };
+  const { isAuthenticated, logout } = useAuth();
 
   return (
     <nav className="navbar">
@@ -26,22 +12,19 @@ function Navbar() {
         {isAuthenticated ? (
           <>
             <li className="nav-item">
-              <button onClick={handleLogout} className="nav-link">Logout</button>
+              <button onClick={logout} className="nav-link">Logout</button>
             </li>
             <li className='home'>
-              <Link to='/home' className='home'>Home</Link>
+              <button><Link to='/home' className='nav-link'>Home</Link></button>
             </li>
           </>
         ) : (
           <>
             <li className="nav-item">
-              <Link to="/login" className="nav-link">Login</Link>
+              <button><Link to="/login" className="nav-link">Login</Link></button>
             </li>
-            <li className="nav-item">
-              <Link to="/register" className="nav-link">Register</Link>
-            </li>
-            <li className='home'>
-              <Link to='/home' className='home'>Home</Link>
+            <li className='nav-item'>
+              <button><Link to='/home' className='nav-link'>Home</Link></button>
             </li>
           </>
         )}

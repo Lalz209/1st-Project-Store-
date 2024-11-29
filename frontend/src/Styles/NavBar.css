@@ -1,7 +1,6 @@
 
 .navbar {
     background-color: #333;
-    padding: 10px;
 }
 
 .nav-list {
@@ -19,3 +18,12 @@
     color: white;
     text-decoration: none;
 }
+
+button{
+    background-color: #333333;
+}
+
+nav{
+    height: 56px;
+}
+
