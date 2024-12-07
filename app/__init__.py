@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_cors import CORS
 from config import Config
+import os
 
 # initialize extensions
 db = SQLAlchemy()
@@ -11,9 +12,12 @@ login_manager = LoginManager()
 def create_app():
     app = Flask(__name__)
     CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
-    
+
     # configuration 
     app.config.from_object(Config)
+
+    if not os.path.exists(app.config['UPLOAD_FOLDER']):
+        os.makedirs(app.config['UPLOAD_FOLDER'])
 
     # initialize extensions
     db.init_app(app)

@@ -1,35 +1,60 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './Styles/Home.css';
 
-
-function Home() {
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState(null);
+const Home = () => {
+  const [games, setGames] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    fetch('http://localhost:5000/auth/api/test')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => setMessage(data.message))
-      .catch(error => {
-        console.error('Error:', error);
-        setError('Failed to load message from server');
+    fetchGames();
+  }, [currentPage]);
+
+  const fetchGames = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/games', {
+        params: { page: currentPage, per_page: 18 }, // 3 columnas x 6 filas
       });
-  }, []);
+      setGames(response.data.games);
+      setTotalPages(response.data.total_pages);
+    } catch (error) {
+      console.error('Error fetching games:', error);
+    }
+  };
 
   return (
-    <div>
-      <h1>Welcome to the Home Page</h1>
-      {error ? (
-        <p style={{ color: 'red' }}>hola</p>
-      ) : (
-        <p>hola{message}</p>
-      )}
+    <div className="home-container">
+      <div className="games-grid">
+        {games.map((game) => (
+          <div key={game.id} className="game-card">
+            <a href={`/game/${game.id}`}>
+              <img src={`http://localhost:5000/${game.image_url}`} alt={game.name} />
+            </a>
+            <h4>{game.name}</h4>
+          </div>
+        ))}
+      </div>
+
+      <footer className="pagination">
+        <button
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage((prev) => prev - 1)}
+        >
+          Previous
+        </button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          disabled={currentPage === totalPages}
+          onClick={() => setCurrentPage((prev) => prev + 1)}
+        >
+          Next
+        </button>
+      </footer>
     </div>
   );
-}
+};
 
 export default Home;

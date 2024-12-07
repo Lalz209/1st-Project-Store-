@@ -7,6 +7,8 @@ class Config:
     SECRET_KEY = os.getenv('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    
+
+    # upload files
+    UPLOAD_FOLDER = os.path.join(os.getcwd(), 'app', 'uploads')
     # CORS configuration
     CORS_HEADERS = 'Content-Type'

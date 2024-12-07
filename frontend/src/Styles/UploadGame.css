@@ -1,0 +1,116 @@
+.upload-game {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #171717;
+  padding: 20px;
+  border-radius: 8px;
+  color: #fff;
+}
+
+.upload-game h2 {
+  text-align: center;
+  color: #fff;
+}
+
+form div {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+button {
+  padding: 10px;
+  background-color: #333333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 55%;
+}
+
+button:hover {
+  background-color: #464646;
+}
+
+span {
+  margin-left: 10px;
+  color: #ccc;
+  display: block;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #171717;
+  padding: 20px;
+  border-radius: 8px;
+  color: #fff;
+  width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal-options {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.modal-options li {
+  width: 100px;
+  margin: 10px; 
+  text-align: center;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.modal-buttons button {
+  flex: 1;
+  margin: 0 5px;
+}
+
+label {
+  width: 100px;
+}
+
+.type {
+  display: center;
+}
+
+h2 {
+  font-size: 22px;
+}
+
+input {
+  width: 55%;
+}
+
+.modal-options label {
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+}
+
+input[type="checkbox"] {
+  margin-bottom: 5px; 
+}
+

@@ -6,6 +6,7 @@ import Login from './login';
 import Register from './register';
 import Game from './Game';
 import Navbar from './Components/NavBar';
+import UploadGame from './UploadGame';
 import { AuthProvider } from './AuthContext';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/game" element={<Game />} />
           <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="/UploadGame" element={<UploadGame />} />
         </Routes>
         
         <footer>

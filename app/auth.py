@@ -91,29 +91,26 @@ def register():
 @auth.route("/api/login", methods=["POST"])
 @cross_origin(origins="http://localhost:3000")
 def login():
-    data = request.get_json()
-    print("Received data:", data)  # Agrega esto para verificar los datos
+    data = request.get_json() 
 
-    identifier = data.get("identifier")  # Username or email
+    identifier = data.get("identifier") 
     password = data.get("password")
-    print("Identifier:", identifier)  # Depuración
-    print("Password:", password)  # Depuración
 
-    # Find user by email or username
+   
     user = User.query.filter(
         (User.email == identifier) | (User.username == identifier)
     ).first()
-    print("Found user:", user)  # Verifica si encuentra al usuario
+    print("Found user:", user)  
 
     if not user or not check_password_hash(user.password_hash, password):
-        print("Invalid credentials")  # Depuración
+        print("Invalid credentials")  
         return jsonify({"error": "Invalid credentials"}), 401
 
-    # Generate tokens
+   
     access_token = generate_token(user, ACCESS_TOKEN_EXPIRES, "access")
     refresh_token = generate_token(user, REFRESH_TOKEN_EXPIRES, "refresh")
 
-    # Store refresh token in DB
+    
     user.refresh_token = refresh_token
     db.session.commit()
 
