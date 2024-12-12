@@ -9,6 +9,6 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # upload files
-    UPLOAD_FOLDER = os.path.join(os.getcwd(), 'app', 'uploads')
+    UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'app', 'static','uploads')
     # CORS configuration
     CORS_HEADERS = 'Content-Type'

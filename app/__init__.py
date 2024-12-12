@@ -11,13 +11,10 @@ login_manager = LoginManager()
 
 def create_app():
     app = Flask(__name__)
-    CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
+    CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
     # configuration 
     app.config.from_object(Config)
-
-    if not os.path.exists(app.config['UPLOAD_FOLDER']):
-        os.makedirs(app.config['UPLOAD_FOLDER'])
 
     # initialize extensions
     db.init_app(app)
@@ -29,6 +26,6 @@ def create_app():
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
 
     from app.main import main as main_blueprint
-    app.register_blueprint(main_blueprint, url_prefix='/main')
+    app.register_blueprint(main_blueprint, url_prefix='/')
 
     return app
