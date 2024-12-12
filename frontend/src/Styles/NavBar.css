@@ -1,6 +1,6 @@
 
 .navbar {
-    background-color: #333;
+    background-color: #333333;
 }
 
 .nav-list {
@@ -17,6 +17,7 @@
 .nav-link {
     color: white;
     text-decoration: none;
+    width: 10vh;
 }
 
 button{

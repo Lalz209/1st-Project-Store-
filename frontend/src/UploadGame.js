@@ -16,8 +16,8 @@ function UploadGame() {
   const [modalType, setModalType] = useState('');
   const [showModal, setShowModal] = useState(false);
 
-  const allPlatforms = ["PC", "PlayStation 1", "PlayStation 2", "PlayStation 3", "PlayStation 4", "PlayStation 5", "Xbox", "Xbox 360", "Xbox One", "Xbox Series S", "Xbox Series x", "Nintendo Switch"];
-  const allGenres = ["Action", "Adventure", "RPG", "Shooter", "Strategy", "MOBA", "Survival", "Open World", "Cozy", "Fighting", "Dance", "Horror", "Battle Royale"];
+  const allPlatforms = ["PC", "PlayStation 1", "PlayStation 2", "PlayStation 3", "PlayStation 4", "PlayStation 5", "Xbox", "Xbox 360", "Xbox One", "Xbox Series S", "Xbox Series x", "Meta Quest 3", "Meta Quest 2", "PS VR", "Nintendo 64", "Super Nintendo", "Nintendo Switch", "Nintendo Wii", "PSP"];
+  const allGenres = ["Action", "Adventure", "RPG", "Shooter", "Strategy", "MOBA", "Survival", "Open World", "Cozy", "Souls", "Fighting", "Dance", "Horror", "Battle Royale", "Racing", "Simulators", "Sports", "Indie", "VR  "];
   const allMultiplayerModes = ["Multiplayer", "Co-op", "Local", "LAN", "Multiplayer Competitive", "Single Player", "MMO"];
 
   const handleOpenModal = (type) => {
@@ -69,21 +69,22 @@ function UploadGame() {
     formData.append('publishers', publishers);
 
     try {
-      const response = await axios.post('http://localhost:5000/main/upload_game', formData, {
+      const response = await axios.post('http://localhost:5000/upload_game', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-
-      if (response.status === 200) {
+    
+      if (response.status === 200 || response.status === 201) {
         alert('Game uploaded successfully!');
       } else {
-        alert(`Error: ${response.statusText}`);
+        alert(`Unexpected response: ${response.statusText}`);
       }
     } catch (error) {
       console.error('Error uploading game:', error);
       alert('There was an error uploading the game.');
     }
+    
   };
 
   return (

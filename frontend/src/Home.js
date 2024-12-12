@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import './Styles/Home.css';
 
@@ -7,21 +7,22 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  useEffect(() => {
-    fetchGames();
-  }, [currentPage]);
-
-  const fetchGames = async () => {
+  const fetchGames = useCallback(async () => {
     try {
       const response = await axios.get('http://localhost:5000/games', {
-        params: { page: currentPage, per_page: 18 }, // 3 columnas x 6 filas
+        params: { page: currentPage, per_page: 18 }, 
       });
       setGames(response.data.games);
       setTotalPages(response.data.total_pages);
     } catch (error) {
       console.error('Error fetching games:', error);
     }
-  };
+  }, [currentPage]);
+
+  useEffect(() => {
+    fetchGames();
+  }, [fetchGames]);
+
 
   return (
     <div className="home-container">
@@ -29,15 +30,14 @@ const Home = () => {
         {games.map((game) => (
           <div key={game.id} className="game-card">
             <a href={`/game/${game.id}`}>
-              <img src={`http://localhost:5000/${game.image_url}`} alt={game.name} />
+            <img src={`http://localhost:5000/images/${game.image_url}`} alt={game.name} />
             </a>
-            <h4>{game.name}</h4>
           </div>
         ))}
       </div>
 
       <footer className="pagination">
-        <button
+        <button className='Arrows'
           disabled={currentPage === 1}
           onClick={() => setCurrentPage((prev) => prev - 1)}
         >

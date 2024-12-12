@@ -3,32 +3,30 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+  grid-template-columns: repeat(3, 1fr); 
   gap: 20px;
   width: 100%;
   max-width: 1200px;
   margin: 20px 0;
 }
 
-.game-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #fff;
-}
-
 .game-card img {
-  max-width: 100%;
-  height: auto;
+  width: 80%;
+  height: 45vh;
   border-radius: 8px;
   margin-bottom: 10px;
+
+}
+
+.game-card img:hover{
+  transform: scale(1.1);
+  transition: 0.3s;
 }
 
 .pagination {
@@ -49,7 +47,7 @@
 
 .pagination button:disabled {
   background-color: #ccc;
-  cursor: not-allowed;
+  cursor: auto;
 }
 
 .pagination span {

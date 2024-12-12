@@ -11,11 +11,11 @@ function Navbar() {
       <ul className="nav-list">
         {isAuthenticated ? (
           <>
+            <li className='nav-item'>
+              <button><Link to='/home' className='nav-link'>Home</Link></button>
+            </li>
             <li className="nav-item">
               <button onClick={logout} className="nav-link">Logout</button>
-            </li>
-            <li className='home'>
-              <button><Link to='/home' className='nav-link'>Home</Link></button>
             </li>
           </>
         ) : (
