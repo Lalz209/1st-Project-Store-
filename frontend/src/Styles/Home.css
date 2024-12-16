@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  width: 80%;
+  width: 78%;
   margin: 0 auto;
 }
 
@@ -52,4 +52,16 @@
 
 .pagination span {
   font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .games-grid{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .games-grid{
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
