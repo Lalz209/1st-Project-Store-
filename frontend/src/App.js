@@ -21,11 +21,10 @@ function App() {
           <Route path="/game" element={<Game />} />
           <Route path="*" element={<Navigate to="/" replace />} />
           <Route path="/UploadGame" element={<UploadGame />} />
+          <Route path="/game/:id" element={<Game />} />
         </Routes>
         
-        <footer>
-          <p>Copyright 2024</p>
-        </footer>
+        
       </div>
       </AuthProvider>
   );

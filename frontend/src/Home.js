@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import './Styles/Home.css';
 
+
 const Home = () => {
   const [games, setGames] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);

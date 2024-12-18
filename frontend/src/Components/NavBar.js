@@ -12,31 +12,34 @@ function Navbar() {
   };
 
   return (
-    <nav className="navbar">
-      <div className="navbar-brand">-
-        <button className="menu-toggle" onClick={toggleMenu} aria-label="Toggle menu">
-          <span className="menu-icon"></span>
-        </button>
+    <nav className="nav">
+      
+      <div className="menu-toggle">
+        <input
+          type="checkbox"
+          id="menu-toggle"
+          checked={menuOpen}
+          onChange={toggleMenu}
+        />
+        <label htmlFor="menu-toggle" className="menu-icon">
+          <span></span>
+          <span></span>
+        </label>
       </div>
 
       
-      <ul className={`nav-list ${menuOpen ? 'active' : ''}`}>
+      <ul className={`menu ${menuOpen ? 'active' : ''}`}>
         {isAuthenticated ? (
           <>
-            <li className="nav-item">
-              <button>
-                <Link to="/home" className="nav-link" onClick={() => setMenuOpen(false)}>
-                  Home
-                </Link>
-              </button>
+            <li>
+              <button><Link to="/home" onClick={() => setMenuOpen(false)}>Home</Link></button>
             </li>
-            <li className="nav-item">
+            <li>
               <button
                 onClick={() => {
                   logout();
                   setMenuOpen(false);
                 }}
-                className="nav-link"
               >
                 Logout
               </button>
@@ -44,19 +47,14 @@ function Navbar() {
           </>
         ) : (
           <>
-            <li className="nav-item">
-              <button>
-                <Link to="/login" className="nav-link" onClick={() => setMenuOpen(false)}>
-                  Login
-                </Link>
-              </button>
+            <li>
+            <button><Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link></button>
             </li>
-            <li className="nav-item">
-              <button>
-                <Link to="/home" className="nav-link" onClick={() => setMenuOpen(false)}>
-                  Home
-                </Link>
-              </button>
+            <li>
+            <button><Link to="/home" onClick={() => setMenuOpen(false)}>Home</Link></button>
+            </li>
+            <li>
+            <button><Link to="/uploadgame" onClick={() => setMenuOpen(false)}>Upload Game</Link></button>
             </li>
           </>
         )}

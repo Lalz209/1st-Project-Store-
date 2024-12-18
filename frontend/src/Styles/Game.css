@@ -1,0 +1,48 @@
+.game-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    height: 100vh;
+  }
+  
+  .game-image {
+    max-width: 600 px;
+    height: auto;
+    border-radius: 10px;
+    margin: 20px 0;
+  }
+  
+  .game-info {
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  .loading, .error {
+    font-size: 1.5rem;
+    color: #d9534f;
+    margin-top: 50px;
+  }
+
+  h1{
+    color: white;
+  }
+
+  img{
+    width: 50%;
+  }
+
+  .list-item {
+    display: inline-block; 
+    margin-right: 10px; 
+
+  }
+  
+p{
+  border: 1px solid white;
+  border-collapse: collapse;
+  margin: auto;
+  padding: 5px;
+
+}

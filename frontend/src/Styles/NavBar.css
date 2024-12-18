@@ -1,88 +1,108 @@
-/* General styles for navbar */
-.navbar {
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.nav {
+  position: relative;
+  background-color: #333333;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  
+}
+
+.menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 87%;
+}
+
+.menu li {
+  margin: 0 10px;
+}
+
+.menu li a,
+.menu li button {
+  text-decoration: none;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.menu li a:hover,
+.menu li button:hover {
+  color: #f974a1;
+}
+
+
+.menu-toggle input {
+  display: none;
+}
+
+
+.menu-icon {
+  display: none; 
+  cursor: pointer;
+}
+
+.menu-icon span {
+  display: block;
+  width: 30px;
+  height: 4px;
+  margin: 6px 0;
+  background-color: white;
+  border-radius: 50px;
+  transition: transform 0.5s, background-color 0.5s;
+}
+
+
+.menu-toggle input:checked ~ .menu-icon span:nth-child(1) {
+  transform: translateY(10px) rotate(-45deg);
+  background-color: #f974a1;
+}
+
+.menu-toggle input:checked ~ .menu-icon span:nth-child(2) {
+  transform: translateY(-1px) rotate(45deg);
+  background-color: #f974a1;
+}
+
+.menu {
+  display: flex;
+}
+
+.menu.active {
+  display: flex;
+}
+
+
+@media (max-width: 768px) {
+  .menu {
+    display: none; 
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
     background-color: #333333;
-    padding: 0;
+    padding: 10px 0;
     text-align: center;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 56px;
   }
-  
-  .navbar-brand {
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+  .menu.active {
+    display: flex; 
   }
-  
-  .nav-list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    width: 75%;
-    justify-content: flex-end;
-  }
-  
-  .nav-item {
-    margin-right: 15px;
-  }
-  
-  .nav-link {
-    color: white;
-    text-decoration: none;
-    width: 10vh;
-  }
-  
-  button {
-    background-color: #333333;
-    border: none;
-    color: white;
-    cursor: pointer;
-  }
-  
-  
-  .menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-  
+
   .menu-icon {
-    width: 30px;
-    height: 4px;
-    background-color: white;
-    margin: 6px 0;
-    transition: 0.3s;
+    display: block; 
   }
-  
-  
-  @media (max-width: 768px) {
-    .menu-toggle {
-      display: block; 
-    }
-  
-    .nav-list {
-      display: none; 
-      flex-direction: column;
-      position: absolute;
-      top: 56px;
-      left: 0;
-      right: 0;
-      background-color: #333333;
-      z-index: 1000;
-      padding: 10px 0;
-    }
-  
-    .nav-list.active {
-      display: flex; 
-    }
-  
-    .nav-item {
-      margin: 10px 0;
-      text-align: center;
-    }
-  }
-  
+}

@@ -111,6 +111,30 @@ def get_games():
     except Exception as e:
         print(e)
         return jsonify({"error": "Failed to fetch games"}), 500
+    
+@main.route('/games/<int:game_id>', methods=['GET'])
+@cross_origin(origins="http://localhost:3000")
+def get_game_by_id(game_id):
+    try:
+        game = Game.query.get(game_id)
+        if not game:
+            return jsonify({"error": "Game not found"}), 404
+        
+        return jsonify({
+            "id": game.id,
+            "name": game.name,
+            "release_date": game.release_date.strftime('%Y-%m-%d') if game.release_date else None,
+            "developers": game.developers,
+            "publishers": game.publishers,
+            "genres": game.genres,
+            "multiplayer_modes": game.multiplayer_modes,
+            "platforms": game.platforms,
+            "crossplay": game.crossplay,
+            "image_url": game.image_url
+        })
+    except Exception as e:
+        print(e)
+        return jsonify({"error": "Failed to fetch game details"}), 500
 
 
 
