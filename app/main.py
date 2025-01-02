@@ -136,5 +136,27 @@ def get_game_by_id(game_id):
         print(e)
         return jsonify({"error": "Failed to fetch game details"}), 500
 
+@main.route('/games/search', methods=['GET'])
+@cross_origin(origins="http://localhost:3000")
+def search_games():
+    try:
+        query = request.args.get('query', '').lower()
+        if not query:
+            return jsonify({"games": []})
+                           
+        games = Game.query.filter(Game.name.ilike(f'%{query}')).limit(10).all()
 
+        games_data = [
+            {
+                "id": game.id,
+                "name": game.name,
+                "release_date": game.release_date.strftime('%Y-%m-%d') if game.release_date else None,
+                "image_url": game.image_url
+            } for game in games
+        ]
+
+        return jsonify({"games": games_data})
+    except Exception as e:
+        print(e)
+        return jsonify({"error": "Failed to search games"}), 500
 

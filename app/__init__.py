@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_cors import CORS
 from config import Config
-import os
 
 # initialize extensions
 db = SQLAlchemy()

@@ -11,7 +11,7 @@ const Home = () => {
   const fetchGames = useCallback(async () => {
     try {
       const response = await axios.get('http://localhost:5000/games', {
-        params: { page: currentPage, per_page: 18 }, 
+        params: { page: currentPage, per_page: 15 }, 
       });
       setGames(response.data.games);
       setTotalPages(response.data.total_pages);
@@ -26,7 +26,11 @@ const Home = () => {
 
 
   return (
+    
     <div className="home-container">
+      <div className="logo_name">
+        <img id='logo_nam' src="/logo_mau2.png" alt="logo_nam" />
+      </div>
       <div className="games-grid">
         {games.map((game) => (
           <div key={game.id} className="game-card">
@@ -45,7 +49,7 @@ const Home = () => {
           Previous
         </button>
         <span>
-          Page {currentPage} of {totalPages}
+           {currentPage} / {totalPages}
         </span>
         <button
           disabled={currentPage === totalPages}

@@ -13,6 +13,11 @@ function Navbar() {
 
   return (
     <nav className="nav">
+      <div className="logo">
+        <Link to="/home">
+          <img id='logo' src="/logo_piramide.png" alt="Logo" />
+        </Link>
+      </div>
       
       <div className="menu-toggle">
         <input
@@ -24,6 +29,7 @@ function Navbar() {
         <label htmlFor="menu-toggle" className="menu-icon">
           <span></span>
           <span></span>
+          <span id='3rd'></span>
         </label>
       </div>
 
@@ -31,9 +37,6 @@ function Navbar() {
       <ul className={`menu ${menuOpen ? 'active' : ''}`}>
         {isAuthenticated ? (
           <>
-            <li>
-              <button><Link to="/home" onClick={() => setMenuOpen(false)}>Home</Link></button>
-            </li>
             <li>
               <button
                 onClick={() => {
@@ -44,14 +47,14 @@ function Navbar() {
                 Logout
               </button>
             </li>
+            <li>
+            <button><Link to="/uploadgame" onClick={() => setMenuOpen(false)}>Upload Game</Link></button>
+            </li>
           </>
         ) : (
           <>
             <li>
             <button><Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link></button>
-            </li>
-            <li>
-            <button><Link to="/home" onClick={() => setMenuOpen(false)}>Home</Link></button>
             </li>
             <li>
             <button><Link to="/uploadgame" onClick={() => setMenuOpen(false)}>Upload Game</Link></button>

@@ -5,6 +5,7 @@
     text-align: center;
     padding: 20px;
     height: 100vh;
+    
   }
   
   .game-image {
@@ -27,15 +28,17 @@
 
   h1{
     color: white;
+    margin-top: 100px;
   }
 
   img{
-    width: 50%;
+    width: 20%;
   }
 
   .list-item {
     display: inline-block; 
     margin-right: 10px; 
+    
 
   }
   
@@ -43,6 +46,17 @@ p{
   border: 1px solid white;
   border-collapse: collapse;
   margin: auto;
-  padding: 5px;
+  padding: 10px;
+  background-color: #0c2725;
+}
+
+html{
+  background-color: #0c2725;
+}
+
+@media (max-width: 768px) {
+  img{
+    width: 80%;
+  }
 
 }
